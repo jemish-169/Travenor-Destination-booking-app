@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Travenor</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_visibility_toggle">Toggle password</string>
+    <string name="name">Name</string>
+</resources>
