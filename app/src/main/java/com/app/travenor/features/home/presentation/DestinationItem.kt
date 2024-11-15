@@ -1,6 +1,5 @@
 package com.app.travenor.features.home.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -48,7 +47,11 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit) {
         modifier = Modifier
             .padding(1.dp)
             .padding(end = 16.dp)
-            .shadow(elevation = 1.dp, shape = RoundedCornerShape(24.dp))
+            .shadow(
+                elevation = 3.dp,
+                shape = RoundedCornerShape(24.dp),
+                spotColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f)
+            )
             .clip(RoundedCornerShape(24.dp))
             .background(MaterialTheme.colorScheme.surface)
             .width(268.dp)
@@ -56,12 +59,18 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit) {
             .padding(14.dp)
     ) {
         Box {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .width(240.dp)
                     .height(286.dp)
                     .clip(RoundedCornerShape(20.dp)),
-                painter = painterResource(id = location.locImage),
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(location.locImageUrl)
+                    .crossfade(true)
+                    .build(),
+                placeholder = painterResource(id = location.placeHolderImage),
+                error = painterResource(id = location.placeHolderImage),
+                fallback = painterResource(id = location.placeHolderImage),
                 contentDescription = "item desc",
                 contentScale = ContentScale.Crop
             )
@@ -162,6 +171,7 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit) {
                                 contentDescription = "profile icon $index",
                                 placeholder = painterResource(id = getPlaceHolderImage(index)),
                                 error = painterResource(id = getPlaceHolderImage(index)),
+                                fallback = painterResource(id = getPlaceHolderImage(index)),
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
                                     .size(24.dp)
@@ -203,12 +213,13 @@ fun getPlaceHolderImage(index: Int): Int {
 fun DestinationItemPreview() {
     DestinationItem(
         BestLocations(
-            locAddress = "Ahmedabad, Gujarat",
+            id = 1,
             locName = "Elite Resort",
             isBookmarked = true,
-            locImage = R.drawable.onboarding_3,
+            locAddress = "Ahmedabad, Gujarat",
             rating = "4.9",
-            id = 1,
+            locImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR78OI5Pcmb5ELnr2lNRHjn_sMJAG2VxNRQug&s",
+            placeHolderImage = R.drawable.onboarding_3,
             profileList = listOf(
                 "https://cdn-icons-png.flaticon.com/512/2919/2919906.png",
                 "https://img.freepik.com/premium-vector/student-avatar-illustration-user-profile-icon-youth-avatar_118339-4405.jpg",

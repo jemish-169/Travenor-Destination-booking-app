@@ -9,16 +9,18 @@ import com.app.travenor.features.auth.presentation.ForgotPassScreen
 import com.app.travenor.features.auth.presentation.OtpVerifyScreen
 import com.app.travenor.features.auth.presentation.SignInScreen
 import com.app.travenor.features.auth.presentation.SignUpScreen
+import com.app.travenor.features.notification.presentation.NotificationNavGraph
 import com.app.travenor.features.onboarding.presentation.OnBoardingScreen
-import com.app.travenor.routes.AppScreen
-import com.app.travenor.routes.ForgotPassScreen
-import com.app.travenor.routes.OnBoardingScreen
-import com.app.travenor.routes.OtpVerifyScreen
-import com.app.travenor.routes.SignInScreen
-import com.app.travenor.routes.SignUpScreen
+import com.app.travenor.routes.AppRoute.NotificationNavGraph
+import com.app.travenor.routes.RootRoute.AppNavGraph
+import com.app.travenor.routes.RootRoute.ForgotPassScreen
+import com.app.travenor.routes.RootRoute.OnBoardingScreen
+import com.app.travenor.routes.RootRoute.OtpVerifyScreen
+import com.app.travenor.routes.RootRoute.SignInScreen
+import com.app.travenor.routes.RootRoute.SignUpScreen
 
 @Composable
-fun RootScreen(
+fun RootNavGraph(
     rootNavController: NavHostController,
     startDestination: Any,
     setOnboarded: (Boolean) -> Unit,
@@ -49,7 +51,7 @@ fun RootScreen(
                         onBackClick = { onBackOrFinish() },
                         validateAndMove = { _, _ ->
                             setOnboarded(true)
-                            rootNavController.navigate(AppScreen) {
+                            rootNavController.navigate(AppNavGraph) {
                                 popUpTo(SignInScreen) {
                                     inclusive = true
                                 }
@@ -66,7 +68,7 @@ fun RootScreen(
                         onBackClick = { onBackOrFinish() },
                         validateAndMove = { _, _ ->
                             setOnboarded(true)
-                            rootNavController.navigate(AppScreen) {
+                            rootNavController.navigate(AppNavGraph) {
                                 popUpTo(SignInScreen) {
                                     inclusive = true
                                 }
@@ -88,7 +90,7 @@ fun RootScreen(
                         innerPadding = innerPadding,
                         onBackClick = { onBackOrFinish() },
                         validateAndMove = { _ ->
-                            rootNavController.navigate(AppScreen) {
+                            rootNavController.navigate(AppNavGraph) {
                                 setOnboarded(true)
                                 popUpTo(SignInScreen) {
                                     inclusive = true
@@ -98,8 +100,17 @@ fun RootScreen(
                     )
                 }
 
-                composable<AppScreen> {
-                    AppScreen()
+                composable<AppNavGraph> {
+                    AppNavGraph(onBackOrFinish = onBackOrFinish, navigateToNotification = {rootNavController.navigate(NotificationNavGraph)})
+                }
+
+
+                composable<NotificationNavGraph> {
+                    NotificationNavGraph(
+                        onBackOrFinish = {
+                            handleBackClick(rootNavController, onBackOrFinish)
+                        }
+                    )
                 }
             }
         }

@@ -46,7 +46,7 @@ fun OnBoardingScreen(
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
-        HorizontalPager(state = pagerState, modifier = Modifier.weight(10f)) { position ->
+        HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { position ->
             PagerScreen(onBoardingDetailList[position])
         }
 
@@ -64,7 +64,7 @@ fun OnBoardingScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(20.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(MaterialTheme.colorScheme.primary)
                 .clickable {

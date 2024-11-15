@@ -59,7 +59,7 @@ fun OtpVerifyScreen(
             .padding(innerPadding)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
+            .padding(20.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Column(modifier = Modifier.weight(1f)) {

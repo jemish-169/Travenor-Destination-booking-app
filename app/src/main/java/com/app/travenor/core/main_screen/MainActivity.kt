@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val rootNavController = rememberNavController()
             TravenorTheme {
-                RootScreen(
+                RootNavGraph(
                     rootNavController = rootNavController,
                     startDestination = getStartDestination(),
                     setOnboarded = { isLogin ->

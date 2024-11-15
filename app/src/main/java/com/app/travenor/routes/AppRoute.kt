@@ -2,24 +2,26 @@ package com.app.travenor.routes
 
 import kotlinx.serialization.Serializable
 
-@Serializable
 sealed class AppRoute {
 
     val name: String
         get() = this::class.qualifiedName ?: (this::class.simpleName ?: this::class.toString())
 
     @Serializable
-    object HomeAppRoute : AppRoute()
+    data object HomeAppRoute : AppRoute()
 
     @Serializable
-    object CalenderAppRoute : AppRoute()
+    data object CalenderAppRoute : AppRoute()
 
     @Serializable
-    object SearchAppRoute : AppRoute()
+    data object SearchAppRoute : AppRoute()
 
     @Serializable
-    object MessagesAppRoute : AppRoute()
+    data object MessagesAppRoute : AppRoute()
 
     @Serializable
-    object ProfileAppRoute : AppRoute()
+    data object ProfileAppRoute : AppRoute()
+
+    @Serializable
+    data object NotificationNavGraph : AppRoute()
 }

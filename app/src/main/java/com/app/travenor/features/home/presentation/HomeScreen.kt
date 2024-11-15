@@ -1,6 +1,5 @@
 package com.app.travenor.features.home.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -22,14 +22,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.app.travenor.R
 import com.app.travenor.features.onboarding.domain.getMainPageText
 import com.app.travenor.sample_data.bestLocationList
+import com.app.travenor.sample_data.getProfileUrl
 
 @Composable
 fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
@@ -39,7 +44,7 @@ fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
             .padding(innerPadding)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(16.dp)
+            .padding(20.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -51,8 +56,17 @@ fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
                     .padding(4.dp)
                     .padding(end = 8.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_profile_img),
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(getProfileUrl())
+                        .crossfade(true)
+                        .build(),
+                    modifier = Modifier
+                        .size(37.dp)
+                        .clip(CircleShape),
+                    placeholder = painterResource(id = R.drawable.ic_profile_img),
+                    error = painterResource(id = R.drawable.ic_profile_img),
+                    fallback = painterResource(id = R.drawable.ic_profile_img),
                     contentDescription = "Profile icon"
                 )
                 Text(
@@ -60,7 +74,7 @@ fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
                     fontSize = 14.sp,
                     lineHeight = 16.sp,
                     fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.tertiary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
             IconButton(
@@ -109,9 +123,8 @@ fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
 
         LazyRow(contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp)) {
             items(items = bestLocationList, key = { it.id }) { location ->
-                DestinationItem(location, onBookmarkClick = { it ->
-                    it.isBookmarked = !it.isBookmarked
-                })
+                DestinationItem(location, onBookmarkClick = { }
+                )
             }
         }
     }

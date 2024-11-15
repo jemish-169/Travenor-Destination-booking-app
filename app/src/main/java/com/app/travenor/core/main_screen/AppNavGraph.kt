@@ -2,10 +2,9 @@ package com.app.travenor.core.main_screen
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.app.travenor.features.calender.presentation.CalenderScreen
 import com.app.travenor.features.home.presentation.HomeScreen
@@ -19,9 +18,11 @@ import com.app.travenor.routes.AppRoute.ProfileAppRoute
 import com.app.travenor.routes.AppRoute.SearchAppRoute
 
 @Composable
-fun AppScreen() {
+fun AppNavGraph(
+    onBackOrFinish: () -> Unit,
+    navigateToNotification: () -> Unit
+) {
     val appNavController = rememberNavController()
-    val navBackStackEntry by appNavController.currentBackStackEntryAsState()
 
     Scaffold(
         bottomBar = {
@@ -35,7 +36,7 @@ fun AppScreen() {
                 composable<HomeAppRoute> {
                     HomeScreen(
                         innerPadding = innerPadding,
-                        onNotificationClick = { }
+                        onNotificationClick = navigateToNotification
                     )
                 }
 
@@ -57,4 +58,9 @@ fun AppScreen() {
             }
         }
     )
+}
+
+fun handleBackClick(appNavController: NavHostController, onBackOrFinish: () -> Unit) {
+    if (appNavController.previousBackStackEntry == null) onBackOrFinish()
+    else appNavController.navigateUp()
 }
