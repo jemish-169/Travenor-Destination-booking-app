@@ -1,5 +1,6 @@
-package com.app.travenor.features.notification.presentation
+package com.app.travenor.features.notification.presentation.notification_list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,13 +25,15 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
+import com.app.travenor.sample_data.Notification
 import com.app.travenor.sample_data.notificationList
 
 @Composable
-fun ArchivedNotificationScreen() {
+fun RecentNotificationScreen(onNotificationClick: (Int, Notification) -> Unit) {
     LazyColumn {
         items(items = notificationList, key = { it.id }) { notification ->
             ListItem(
+                modifier = Modifier.clickable { onNotificationClick(1, notification) },
                 headlineContent = {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -71,9 +74,9 @@ fun ArchivedNotificationScreen() {
                         modifier = Modifier
                             .size(48.dp)
                             .clip(CircleShape),
-                        placeholder = painterResource(id = R.drawable.profile_ph3),
-                        error = painterResource(id = R.drawable.profile_ph3),
-                        fallback = painterResource(id = R.drawable.profile_ph3),
+                        placeholder = painterResource(id = R.drawable.profile_ph1),
+                        error = painterResource(id = R.drawable.profile_ph1),
+                        fallback = painterResource(id = R.drawable.profile_ph1),
                         contentDescription = "Profile icon"
                     )
                 }
@@ -85,7 +88,7 @@ fun ArchivedNotificationScreen() {
 
 @Preview
 @Composable
-fun ArchivedNotificationScreenPreview() {
-    ArchivedNotificationScreen()
+fun NotificationPagerScreenPreview() {
+    RecentNotificationScreen{ _, _ -> }
 }
 

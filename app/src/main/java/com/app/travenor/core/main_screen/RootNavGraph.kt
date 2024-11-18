@@ -107,9 +107,7 @@ fun RootNavGraph(
 
                 composable<NotificationNavGraph> {
                     NotificationNavGraph(
-                        onBackOrFinish = {
-                            handleBackClick(rootNavController, onBackOrFinish)
-                        }
+                        onBackOrFinish = onBackOrFinish
                     )
                 }
             }

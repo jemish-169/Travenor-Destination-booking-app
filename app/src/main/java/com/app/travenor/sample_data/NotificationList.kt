@@ -2,7 +2,9 @@ package com.app.travenor.sample_data
 
 import androidx.annotation.DrawableRes
 import com.app.travenor.R
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Notification(
     val id: Int,
     val notificationTitle: String,

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.app.travenor.core.preferences.Preferences
 import com.app.travenor.core.utils.getStartDestination
@@ -24,12 +25,14 @@ class MainActivity : ComponentActivity() {
                     setOnboarded = { isLogin ->
                         Preferences.setIsOnboarded(isLogin)
                     },
-                    onBackOrFinish = {
-                        if (rootNavController.previousBackStackEntry == null) finish()
-                        else rootNavController.navigateUp()
-                    }
+                    onBackOrFinish = { handleBackClick(rootNavController) }
                 )
             }
         }
+    }
+
+    private fun handleBackClick(rootNavController: NavHostController) {
+        if (rootNavController.previousBackStackEntry == null) finish()
+        else rootNavController.navigateUp()
     }
 }

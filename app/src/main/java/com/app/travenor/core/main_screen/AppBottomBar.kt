@@ -17,13 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.app.travenor.sample_data.items
 
 @Composable
@@ -89,12 +87,4 @@ fun AppBottomBar(
             )
         }
     }
-}
-
-@Composable
-@Preview
-fun AppBottomBarPreview() {
-    val appNavController = rememberNavController()
-
-    AppBottomBar(navController = appNavController)
 }

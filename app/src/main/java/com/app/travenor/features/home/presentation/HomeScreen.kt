@@ -1,6 +1,7 @@
 package com.app.travenor.features.home.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -37,7 +38,11 @@ import com.app.travenor.sample_data.bestLocationList
 import com.app.travenor.sample_data.getProfileUrl
 
 @Composable
-fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
+fun HomeScreen(
+    innerPadding: PaddingValues,
+    onNotificationClick: () -> Unit,
+    onProfileClick: () -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -53,6 +58,8 @@ fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.onTertiary, CircleShape)
+                    .clip(CircleShape)
+                    .clickable { onProfileClick() }
                     .padding(4.dp)
                     .padding(end = 8.dp)
             ) {
@@ -133,5 +140,5 @@ fun HomeScreen(innerPadding: PaddingValues, onNotificationClick: () -> Unit) {
 @Composable
 @Preview
 fun HomeScreenPreView() {
-    HomeScreen(PaddingValues(0.dp)) {}
+    HomeScreen(PaddingValues(0.dp), {}) {}
 }

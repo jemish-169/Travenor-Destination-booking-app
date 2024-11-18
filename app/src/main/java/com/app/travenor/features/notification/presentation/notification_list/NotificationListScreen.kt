@@ -1,4 +1,4 @@
-package com.app.travenor.features.notification.presentation
+package com.app.travenor.features.notification.presentation.notification_list
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -32,12 +32,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.app.travenor.sample_data.Notification
 import kotlinx.coroutines.launch
 
 @Composable
-fun NotificationScreen(
+fun NotificationListScreen(
     innerPadding: PaddingValues,
     onBackClick: () -> Unit,
+    onNotificationClick: (Int, Notification) -> Unit,
     onClearAllClicked: (Int) -> Unit
 ) {
     val pagerState = rememberPagerState(pageCount = { 3 })
@@ -164,9 +166,9 @@ fun NotificationScreen(
             verticalAlignment = Alignment.Top
         ) { position ->
             when (position) {
-                0 -> RecentNotificationScreen()
-                1 -> EarlierNotificationScreen()
-                else -> ArchivedNotificationScreen()
+                0 -> RecentNotificationScreen(onNotificationClick = onNotificationClick)
+                1 -> EarlierNotificationScreen(onNotificationClick = onNotificationClick)
+                else -> ArchivedNotificationScreen(onNotificationClick = onNotificationClick)
             }
         }
     }
@@ -175,5 +177,5 @@ fun NotificationScreen(
 @Composable
 @Preview
 fun NotificationScreenPreview() {
-    NotificationScreen(PaddingValues(0.dp), {}) {}
+    NotificationListScreen(PaddingValues(0.dp), {}, { _, _ -> }) {}
 }

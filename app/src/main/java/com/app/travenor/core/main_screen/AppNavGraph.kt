@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.app.travenor.features.calender.presentation.CalenderScreen
 import com.app.travenor.features.home.presentation.HomeScreen
 import com.app.travenor.features.messages.presentation.MessagesScreen
-import com.app.travenor.features.profile.presentation.ProfileScreen
+import com.app.travenor.features.profile.presentation.ProfileNavGraph
 import com.app.travenor.features.search.presentation.SearchScreen
 import com.app.travenor.routes.AppRoute.CalenderAppRoute
 import com.app.travenor.routes.AppRoute.HomeAppRoute
@@ -36,7 +36,10 @@ fun AppNavGraph(
                 composable<HomeAppRoute> {
                     HomeScreen(
                         innerPadding = innerPadding,
-                        onNotificationClick = navigateToNotification
+                        onNotificationClick = navigateToNotification,
+                        onProfileClick = {
+                            appNavController.navigate(ProfileAppRoute)
+                        }
                     )
                 }
 
@@ -53,14 +56,19 @@ fun AppNavGraph(
                 }
 
                 composable<ProfileAppRoute> {
-                    ProfileScreen(innerPadding = innerPadding)
+                    ProfileNavGraph(onBackOrFinish = {
+                        handleBackClick(
+                            appNavController,
+                            onBackOrFinish
+                        )
+                    })
                 }
             }
         }
     )
 }
 
-fun handleBackClick(appNavController: NavHostController, onBackOrFinish: () -> Unit) {
+private fun handleBackClick(appNavController: NavHostController, onBackOrFinish: () -> Unit) {
     if (appNavController.previousBackStackEntry == null) onBackOrFinish()
     else appNavController.navigateUp()
 }

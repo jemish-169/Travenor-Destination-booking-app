@@ -52,7 +52,7 @@ fun OtpVerifyScreen(
     onBackClick: () -> Unit,
     validateAndMove: (String) -> Unit,
 ) {
-    var otpText = remember { mutableStateListOf("", "", "", "") }
+    val otpText = remember { mutableStateListOf("", "", "", "") }
 
     Column(
         modifier = Modifier

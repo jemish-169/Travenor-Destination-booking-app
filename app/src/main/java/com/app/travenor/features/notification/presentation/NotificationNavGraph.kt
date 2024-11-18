@@ -6,7 +6,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.app.travenor.routes.NotificationRoute.NotificationScreen
+import androidx.navigation.toRoute
+import com.app.travenor.features.notification.presentation.notification_detail.NotificationDetailScreen
+import com.app.travenor.features.notification.presentation.notification_list.NotificationListScreen
+import com.app.travenor.routes.NotificationRoute.NotificationDetailScreen
+import com.app.travenor.routes.NotificationRoute.NotificationListScreen
+import com.app.travenor.sample_data.Notification
+import kotlin.reflect.typeOf
 
 @Composable
 fun NotificationNavGraph(onBackOrFinish: () -> Unit) {
@@ -16,13 +22,40 @@ fun NotificationNavGraph(onBackOrFinish: () -> Unit) {
         content = { innerPadding ->
             NavHost(
                 navController = notificationNavController,
-                startDestination = NotificationScreen
+                startDestination = NotificationListScreen
             ) {
-                composable<NotificationScreen> {
-                    NotificationScreen(
+                composable<NotificationListScreen> {
+                    NotificationListScreen(
                         innerPadding = innerPadding,
                         onBackClick = { handleBackClick(notificationNavController, onBackOrFinish) },
+                        onNotificationClick = { notificationType, notification ->
+                            notificationNavController.navigate(
+                                NotificationDetailScreen(
+                                    notificationType = notificationType,
+                                    notification = notification
+                                )
+                            )
+                        },
                         onClearAllClicked = { _ -> }
+                    )
+                }
+
+                composable<NotificationDetailScreen>(
+                    typeMap =mapOf(
+                        typeOf<Notification>() to CustomNavType.NotificationNavType,
+                    )
+                ) {
+                    val args = it.toRoute<NotificationDetailScreen>()
+                    NotificationDetailScreen(
+                        innerPadding = innerPadding,
+                        notificationType = args.notificationType,
+                        notification = args.notification,
+                        onBackClick = {
+                            handleBackClick(
+                                notificationNavController,
+                                onBackOrFinish
+                            )
+                        },
                     )
                 }
             }
@@ -30,7 +63,7 @@ fun NotificationNavGraph(onBackOrFinish: () -> Unit) {
     )
 }
 
-fun handleBackClick(appNavController: NavHostController, onBackOrFinish: () -> Unit) {
+private fun handleBackClick(appNavController: NavHostController, onBackOrFinish: () -> Unit) {
     if (appNavController.previousBackStackEntry == null) onBackOrFinish()
     else appNavController.navigateUp()
 }
