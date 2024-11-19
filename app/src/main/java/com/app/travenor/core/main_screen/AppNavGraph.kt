@@ -2,6 +2,7 @@ package com.app.travenor.core.main_screen
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,7 +27,7 @@ fun AppNavGraph(
 
     Scaffold(
         bottomBar = {
-            AppBottomBar(appNavController)
+            AppBottomBar(appNavController = appNavController)
         },
         content = { innerPadding ->
             NavHost(
@@ -38,7 +39,13 @@ fun AppNavGraph(
                         innerPadding = innerPadding,
                         onNotificationClick = navigateToNotification,
                         onProfileClick = {
-                            appNavController.navigate(ProfileAppRoute)
+                            appNavController.navigate(ProfileAppRoute) {
+                                popUpTo(appNavController.graph.findStartDestination().id) {
+                                    saveState = false
+                                }
+                                launchSingleTop = true
+                                restoreState = false
+                            }
                         }
                     )
                 }

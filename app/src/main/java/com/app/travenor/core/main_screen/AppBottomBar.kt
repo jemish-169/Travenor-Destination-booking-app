@@ -26,9 +26,9 @@ import com.app.travenor.sample_data.items
 
 @Composable
 fun AppBottomBar(
-    navController: NavHostController
+    appNavController: NavHostController
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val navBackStackEntry by appNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     NavigationBar(
@@ -51,12 +51,12 @@ fun AppBottomBar(
                 ),
                 selected = isSelected && index != 2,
                 onClick = {
-                    navController.navigate(item.appRoute) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    appNavController.navigate(item.appRoute) {
+                        popUpTo(appNavController.graph.findStartDestination().id) {
+                            saveState = false
                         }
                         launchSingleTop = true
-                        restoreState = true
+                        restoreState = false
                     }
                 },
                 label = {
