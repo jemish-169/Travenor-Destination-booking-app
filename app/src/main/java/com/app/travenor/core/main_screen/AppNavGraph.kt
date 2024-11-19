@@ -11,7 +11,7 @@ import com.app.travenor.features.calender.presentation.CalenderScreen
 import com.app.travenor.features.home.presentation.HomeScreen
 import com.app.travenor.features.messages.presentation.MessagesScreen
 import com.app.travenor.features.profile.presentation.ProfileNavGraph
-import com.app.travenor.features.search.presentation.SearchScreen
+import com.app.travenor.features.search.presentation.SearchNavGraph
 import com.app.travenor.routes.AppRoute.CalenderAppRoute
 import com.app.travenor.routes.AppRoute.HomeAppRoute
 import com.app.travenor.routes.AppRoute.MessagesAppRoute
@@ -55,7 +55,14 @@ fun AppNavGraph(
                 }
 
                 composable<SearchAppRoute> {
-                    SearchScreen(innerPadding = innerPadding)
+                    SearchNavGraph(
+                        onBackOrFinish = {
+                            handleBackClick(
+                                appNavController,
+                                onBackOrFinish
+                            )
+                        }
+                    )
                 }
 
                 composable<MessagesAppRoute> {
@@ -63,12 +70,14 @@ fun AppNavGraph(
                 }
 
                 composable<ProfileAppRoute> {
-                    ProfileNavGraph(onBackOrFinish = {
-                        handleBackClick(
-                            appNavController,
-                            onBackOrFinish
-                        )
-                    })
+                    ProfileNavGraph(
+                        onBackOrFinish = {
+                            handleBackClick(
+                                appNavController,
+                                onBackOrFinish
+                            )
+                        }
+                    )
                 }
             }
         }
