@@ -63,7 +63,7 @@ fun NotificationNavGraph(onBackOrFinish: () -> Unit) {
     )
 }
 
-private fun handleBackClick(appNavController: NavHostController, onBackOrFinish: () -> Unit) {
-    if (appNavController.previousBackStackEntry == null) onBackOrFinish()
-    else appNavController.navigateUp()
+private fun handleBackClick(notificationNavController: NavHostController, onBackOrFinish: () -> Unit) {
+    if (notificationNavController.previousBackStackEntry == null) onBackOrFinish()
+    else notificationNavController.navigateUp()
 }

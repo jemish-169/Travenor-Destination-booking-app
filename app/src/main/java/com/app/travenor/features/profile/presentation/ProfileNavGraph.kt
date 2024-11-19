@@ -42,7 +42,7 @@ fun ProfileNavGraph(onBackOrFinish: () -> Unit) {
     )
 }
 
-private fun handleBackClick(appNavController: NavHostController, onBackOrFinish: () -> Unit) {
-    if (appNavController.previousBackStackEntry == null) onBackOrFinish()
-    else appNavController.navigateUp()
+private fun handleBackClick(profileNavController: NavHostController, onBackOrFinish: () -> Unit) {
+    if (profileNavController.previousBackStackEntry == null) onBackOrFinish()
+    else profileNavController.navigateUp()
 }
