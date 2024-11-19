@@ -53,10 +53,10 @@ fun AppBottomBar(
                 onClick = {
                     navController.navigate(item.appRoute) {
                         popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                            saveState = false
                         }
                         launchSingleTop = true
-                        restoreState = true
+                        restoreState = false
                     }
                 },
                 label = {
