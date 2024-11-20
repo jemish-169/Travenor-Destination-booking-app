@@ -46,7 +46,6 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(1.dp)
-            .padding(end = 16.dp)
             .shadow(
                 elevation = 3.dp,
                 shape = RoundedCornerShape(24.dp),

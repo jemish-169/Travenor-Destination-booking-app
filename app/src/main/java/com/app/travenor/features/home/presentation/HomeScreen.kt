@@ -128,7 +128,10 @@ fun HomeScreen(
             )
         }
 
-        LazyRow(contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp)) {
+        LazyRow(
+            contentPadding = PaddingValues(vertical = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             items(items = bestLocationList, key = { it.id }) { location ->
                 DestinationItem(location, onBookmarkClick = { }
                 )
