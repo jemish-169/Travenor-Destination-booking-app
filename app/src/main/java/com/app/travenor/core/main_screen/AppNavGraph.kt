@@ -39,14 +39,12 @@ fun AppNavGraph(
                         innerPadding = innerPadding,
                         onNotificationClick = navigateToNotification,
                         onProfileClick = {
-                            appNavController.navigate(ProfileAppRoute){
-                                appNavController.navigate(ProfileAppRoute) {
-                                    popUpTo(appNavController.graph.findStartDestination().id) {
-                                        saveState = false
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = false
+                            appNavController.navigate(ProfileAppRoute) {
+                                popUpTo(appNavController.graph.findStartDestination().id) {
+                                    saveState = false
                                 }
+                                launchSingleTop = true
+                                restoreState = false
                             }
                         }
                     )
@@ -58,6 +56,7 @@ fun AppNavGraph(
 
                 composable<SearchAppRoute> {
                     SearchNavGraph(
+                        innerPadding = innerPadding,
                         onBackOrFinish = {
                             handleBackClick(
                                 appNavController,
@@ -73,6 +72,7 @@ fun AppNavGraph(
 
                 composable<ProfileAppRoute> {
                     ProfileNavGraph(
+                        innerPadding = innerPadding,
                         onBackOrFinish = {
                             handleBackClick(
                                 appNavController,
