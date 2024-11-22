@@ -56,6 +56,7 @@ fun AppNavGraph(
 
                 composable<SearchAppRoute> {
                     SearchNavGraph(
+                        innerPadding = innerPadding,
                         onBackOrFinish = {
                             handleBackClick(
                                 appNavController,
@@ -71,6 +72,7 @@ fun AppNavGraph(
 
                 composable<ProfileAppRoute> {
                     ProfileNavGraph(
+                        innerPadding = innerPadding,
                         onBackOrFinish = {
                             handleBackClick(
                                 appNavController,
