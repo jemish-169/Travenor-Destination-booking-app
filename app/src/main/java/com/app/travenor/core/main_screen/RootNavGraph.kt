@@ -5,12 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.app.travenor.animation.AnimateScreen
 import com.app.travenor.features.auth.presentation.ForgotPassScreen
 import com.app.travenor.features.auth.presentation.OtpVerifyScreen
 import com.app.travenor.features.auth.presentation.SignInScreen
 import com.app.travenor.features.auth.presentation.SignUpScreen
+import com.app.travenor.features.detail.presentation.DetailNavGraph
 import com.app.travenor.features.notification.presentation.NotificationNavGraph
 import com.app.travenor.features.onboarding.presentation.OnBoardingScreen
+import com.app.travenor.routes.AppRoute.DetailRoute
 import com.app.travenor.routes.AppRoute.NotificationNavGraph
 import com.app.travenor.routes.RootRoute.AppNavGraph
 import com.app.travenor.routes.RootRoute.ForgotPassScreen
@@ -32,7 +35,12 @@ fun RootNavGraph(
                 navController = rootNavController,
                 startDestination = startDestination
             ) {
-                composable<OnBoardingScreen> {
+                composable<OnBoardingScreen>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     OnBoardingScreen(
                         innerPadding = innerPadding,
                         onFinish = {
@@ -45,7 +53,12 @@ fun RootNavGraph(
                     )
                 }
 
-                composable<SignInScreen> {
+                composable<SignInScreen>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     SignInScreen(
                         innerPadding = innerPadding,
                         onBackClick = { onBackOrFinish() },
@@ -62,7 +75,12 @@ fun RootNavGraph(
                     )
                 }
 
-                composable<SignUpScreen> {
+                composable<SignUpScreen>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     SignUpScreen(
                         innerPadding = innerPadding,
                         onBackClick = { onBackOrFinish() },
@@ -77,7 +95,12 @@ fun RootNavGraph(
                     )
                 }
 
-                composable<ForgotPassScreen> {
+                composable<ForgotPassScreen>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     ForgotPassScreen(
                         innerPadding = innerPadding,
                         onBackClick = { onBackOrFinish() },
@@ -85,7 +108,12 @@ fun RootNavGraph(
                     )
                 }
 
-                composable<OtpVerifyScreen> {
+                composable<OtpVerifyScreen>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     OtpVerifyScreen(
                         innerPadding = innerPadding,
                         onBackClick = { onBackOrFinish() },
@@ -100,13 +128,40 @@ fun RootNavGraph(
                     )
                 }
 
-                composable<AppNavGraph> {
-                    AppNavGraph(onBackOrFinish = onBackOrFinish, navigateToNotification = {rootNavController.navigate(NotificationNavGraph)})
+                composable<AppNavGraph>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
+                    AppNavGraph(
+                        innerPadding = innerPadding,
+                        onBackOrFinish = onBackOrFinish,
+                        navigateToNotification = { rootNavController.navigate(NotificationNavGraph) },
+                        navigateToDetail = { rootNavController.navigate(DetailRoute) }
+                    )
                 }
 
-
-                composable<NotificationNavGraph> {
+                composable<NotificationNavGraph>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     NotificationNavGraph(
+                        innerPadding = innerPadding,
+                        onBackOrFinish = onBackOrFinish
+                    )
+                }
+
+                composable<DetailRoute>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
+                    DetailNavGraph(
+                        innerPadding = innerPadding,
                         onBackOrFinish = onBackOrFinish
                     )
                 }

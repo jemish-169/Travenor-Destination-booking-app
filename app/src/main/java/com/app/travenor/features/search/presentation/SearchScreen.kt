@@ -31,7 +31,7 @@ import com.app.travenor.sample_data.searchPlaceList
 
 
 @Composable
-fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
+fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit, onItemClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -92,7 +92,7 @@ fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
                         items = searchPlaceList,
                         key = { it.id },
                         itemContent = { searchPlace ->
-                            SearchPlaceItem(place = searchPlace)
+                            SearchPlaceItem(place = searchPlace, onItemClick = onItemClick)
                         }
                     )
                 }
@@ -104,5 +104,5 @@ fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
 @Composable
 @Preview
 fun SearchScreenPreview() {
-    SearchScreen(PaddingValues(0.dp)) { }
+    SearchScreen(PaddingValues(0.dp), { }, {})
 }

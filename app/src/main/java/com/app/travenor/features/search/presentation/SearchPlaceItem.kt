@@ -1,6 +1,7 @@
 package com.app.travenor.features.search.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +31,7 @@ import com.app.travenor.R
 import com.app.travenor.sample_data.SearchPlace
 
 @Composable
-fun SearchPlaceItem(place: SearchPlace) {
+fun SearchPlaceItem(place: SearchPlace, onItemClick: () -> Unit) {
     Column {
         Column(
             modifier = Modifier
@@ -41,6 +42,7 @@ fun SearchPlaceItem(place: SearchPlace) {
                     spotColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f)
                 )
                 .clip(RoundedCornerShape(16.dp))
+                .clickable { onItemClick() }
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(12.dp)
         ) {
@@ -90,6 +92,7 @@ fun SearchPlaceItem(place: SearchPlace) {
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
                 fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.padding(top = 6.dp)
             )
         }
@@ -108,5 +111,6 @@ fun SearchPlaceItemPreView() {
             imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ69nti-8_ijCzxKdRYCZfKH7wfL4DT7UFltA&s",
             placeHolder = R.drawable.search_img_1
         ),
+        onItemClick = {  },
     )
 }

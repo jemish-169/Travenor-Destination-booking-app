@@ -41,7 +41,8 @@ import com.app.travenor.sample_data.getProfileUrl
 fun HomeScreen(
     innerPadding: PaddingValues,
     onNotificationClick: () -> Unit,
-    onProfileClick: () -> Unit
+    onProfileClick: () -> Unit,
+    onItemClick: () -> Unit
 ) {
 
     Column(
@@ -133,7 +134,10 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(items = bestLocationList, key = { it.id }) { location ->
-                DestinationItem(location, onBookmarkClick = { }
+                DestinationItem(
+                    location = location,
+                    onItemClick = onItemClick,
+                    onBookmarkClick = { }
                 )
             }
         }
@@ -143,5 +147,5 @@ fun HomeScreen(
 @Composable
 @Preview
 fun HomeScreenPreView() {
-    HomeScreen(PaddingValues(0.dp), {}) {}
+    HomeScreen(PaddingValues(0.dp), {}, {}, {})
 }

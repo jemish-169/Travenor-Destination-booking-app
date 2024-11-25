@@ -1,6 +1,7 @@
 package com.app.travenor.features.home.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,7 +42,7 @@ import com.app.travenor.sample_data.BestLocations
 import com.app.travenor.ui.theme.secondary
 
 @Composable
-fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit) {
+fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItemClick: () -> Unit) {
     val isBookmarked = remember { mutableStateOf(location.isBookmarked) }
     Column(
         modifier = Modifier
@@ -52,6 +53,7 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit) {
                 spotColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f)
             )
             .clip(RoundedCornerShape(24.dp))
+            .clickable { onItemClick() }
             .background(MaterialTheme.colorScheme.surface)
             .width(268.dp)
             .height(384.dp)
@@ -228,6 +230,8 @@ fun DestinationItemPreview() {
                 "https://png.pngtree.com/png-clipart/20240723/original/pngtree-flat-people-man-icon-illustration-vector-png-image_15612321.png",
                 "https://img.freepik.com/premium-photo/profile-icon-white-background_941097-162565.jpg"
             )
-        )
-    ) {}
+        ),
+        {},
+        {  }
+    )
 }

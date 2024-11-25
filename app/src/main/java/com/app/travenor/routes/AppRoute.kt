@@ -24,4 +24,7 @@ sealed class AppRoute {
 
     @Serializable
     data object NotificationNavGraph : AppRoute()
+
+    @Serializable
+    data object DetailRoute : AppRoute()
 }

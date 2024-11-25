@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.app.travenor.sample_data.favouritePlaceList
 
 @Composable
-fun FavouritesScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
+fun FavouritesScreen(innerPadding: PaddingValues, onBackClick: () -> Unit, onItemClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -73,7 +73,7 @@ fun FavouritesScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
                     items = favouritePlaceList,
                     key = { it.id },
                     itemContent = { favouritePlace ->
-                        FavouritePlaceItem(place = favouritePlace)
+                        FavouritePlaceItem(place = favouritePlace, onItemClick = onItemClick)
                     }
                 )
             }
@@ -85,5 +85,5 @@ fun FavouritesScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
 @Composable
 @Preview
 fun FavouriteScreenPreview() {
-    FavouritesScreen(innerPadding = PaddingValues(0.dp)) {}
+    FavouritesScreen(innerPadding = PaddingValues(0.dp), {}, {  })
 }

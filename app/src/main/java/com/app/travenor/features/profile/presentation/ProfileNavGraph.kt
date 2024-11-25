@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.app.travenor.animation.AnimateScreen
 import com.app.travenor.core.extensions.plus
 import com.app.travenor.features.profile.presentation.profile_edit.EditProfileScreen
 import com.app.travenor.features.profile.presentation.profile_view.ProfileScreen
@@ -23,14 +24,24 @@ fun ProfileNavGraph(onBackOrFinish: () -> Unit, innerPadding: PaddingValues) {
                 navController = profileNavController,
                 startDestination = ProfileScreen
             ) {
-                composable<ProfileScreen> {
+                composable<ProfileScreen>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     ProfileScreen(
                         innerPadding = innerPadding.plus(nestedInnerPadding),
                         onBackClick = { handleBackClick(profileNavController, onBackOrFinish) },
                         onEditClick = { profileNavController.navigate(EditProfileScreen) }
                     )
                 }
-                composable<EditProfileScreen> {
+                composable<EditProfileScreen>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     EditProfileScreen(
                         innerPadding = innerPadding.plus(nestedInnerPadding),
                         onBackClick = { handleBackClick(profileNavController, onBackOrFinish) },

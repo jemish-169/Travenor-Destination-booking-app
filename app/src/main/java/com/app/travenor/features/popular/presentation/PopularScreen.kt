@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.app.travenor.sample_data.popularPlaceList
 
 @Composable
-fun PopularsScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
+fun PopularsScreen(innerPadding: PaddingValues, onBackClick: () -> Unit, onItemClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -76,7 +76,7 @@ fun PopularsScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
                     items = popularPlaceList,
                     key = { it.id },
                     itemContent = { popularPlace ->
-                        PopularPlaceItem(place = popularPlace)
+                        PopularPlaceItem(place = popularPlace, onItemClick = onItemClick)
                     }
                 )
             }
@@ -87,5 +87,5 @@ fun PopularsScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
 @Composable
 @Preview
 fun PopularScreenPreview() {
-    PopularsScreen(innerPadding = PaddingValues(0.dp)) {}
+    PopularsScreen(innerPadding = PaddingValues(0.dp), {}, {  })
 }

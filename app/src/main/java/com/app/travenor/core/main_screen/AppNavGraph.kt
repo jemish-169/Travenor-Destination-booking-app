@@ -1,5 +1,6 @@
 package com.app.travenor.core.main_screen
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -7,6 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.app.travenor.animation.AnimateScreen
+import com.app.travenor.core.extensions.plus
 import com.app.travenor.features.favourites.presentation.FavouriteNavGraph
 import com.app.travenor.features.home.presentation.HomeScreen
 import com.app.travenor.features.popular.presentation.PopularNavGraph
@@ -20,8 +23,10 @@ import com.app.travenor.routes.AppRoute.SearchAppRoute
 
 @Composable
 fun AppNavGraph(
+    innerPadding: PaddingValues,
     onBackOrFinish: () -> Unit,
-    navigateToNotification: () -> Unit
+    navigateToNotification: () -> Unit,
+    navigateToDetail: () -> Unit
 ) {
     val appNavController = rememberNavController()
 
@@ -29,15 +34,21 @@ fun AppNavGraph(
         bottomBar = {
             AppBottomBar(appNavController = appNavController)
         },
-        content = { innerPadding ->
+        content = { appGraphPadding ->
             NavHost(
                 navController = appNavController,
                 startDestination = HomeAppRoute
             ) {
-                composable<HomeAppRoute> {
+                composable<HomeAppRoute>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     HomeScreen(
-                        innerPadding = innerPadding,
+                        innerPadding = appGraphPadding.plus(innerPadding),
                         onNotificationClick = navigateToNotification,
+                        onItemClick = navigateToDetail,
                         onProfileClick = {
                             appNavController.navigate(ProfileAppRoute) {
                                 popUpTo(appNavController.graph.findStartDestination().id) {
@@ -50,16 +61,28 @@ fun AppNavGraph(
                     )
                 }
 
-                composable<PopularAppRoute> {
+                composable<PopularAppRoute>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     PopularNavGraph(
-                        innerPadding = innerPadding,
+                        innerPadding = appGraphPadding.plus(innerPadding),
+                        onItemClick = navigateToDetail,
                         onBackOrFinish = { handleBackClick(appNavController, onBackOrFinish) }
                     )
                 }
 
-                composable<SearchAppRoute> {
+                composable<SearchAppRoute>(
+                    popEnterTransition = AnimateScreen.bottomPopEnterTransition(),
+                    enterTransition = AnimateScreen.topEnterTransition(),
+                    popExitTransition = AnimateScreen.bottomPopExitTransition(),
+                    exitTransition = AnimateScreen.topExitTransition()
+                ) {
                     SearchNavGraph(
-                        innerPadding = innerPadding,
+                        innerPadding = appGraphPadding.plus(innerPadding),
+                        onItemClick = navigateToDetail,
                         onBackOrFinish = {
                             handleBackClick(
                                 appNavController,
@@ -69,16 +92,27 @@ fun AppNavGraph(
                     )
                 }
 
-                composable<FavouritesAppRoute> {
+                composable<FavouritesAppRoute>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     FavouriteNavGraph(
-                        innerPadding = innerPadding,
+                        innerPadding = appGraphPadding.plus(innerPadding),
+                        onItemClick = navigateToDetail,
                         onBackOrFinish = { handleBackClick(appNavController, onBackOrFinish) }
                     )
                 }
 
-                composable<ProfileAppRoute> {
+                composable<ProfileAppRoute>(
+                    popEnterTransition = AnimateScreen.rightPopEnterTransition(),
+                    enterTransition = AnimateScreen.leftEnterTransition(),
+                    popExitTransition = AnimateScreen.rightPopExitTransition(),
+                    exitTransition = AnimateScreen.leftExitTransition()
+                ) {
                     ProfileNavGraph(
-                        innerPadding = innerPadding,
+                        innerPadding = appGraphPadding.plus(innerPadding),
                         onBackOrFinish = {
                             handleBackClick(
                                 appNavController,
