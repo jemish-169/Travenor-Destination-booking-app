@@ -28,8 +28,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            isMinifyEnabled =  true
-            isShrinkResources =  true
+            isMinifyEnabled =  false
+            isShrinkResources =  false
             isDebuggable =  false
         }
     }
