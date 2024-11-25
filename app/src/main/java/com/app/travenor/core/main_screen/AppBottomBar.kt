@@ -2,6 +2,7 @@ package com.app.travenor.core.main_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -78,8 +79,8 @@ fun AppBottomBar(
                         modifier = if (index == 2)
                             Modifier
                                 .background(MaterialTheme.colorScheme.primary, CircleShape)
-                                .padding(12.dp)
-                        else Modifier
+                                .padding(12.dp).size(24.dp)
+                        else Modifier.size(24.dp)
 
                     )
                 },

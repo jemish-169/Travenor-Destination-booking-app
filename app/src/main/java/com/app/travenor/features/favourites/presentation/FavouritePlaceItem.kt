@@ -1,4 +1,4 @@
-package com.app.travenor.features.search.presentation
+package com.app.travenor.features.favourites.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,10 +26,10 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
-import com.app.travenor.sample_data.SearchPlace
+import com.app.travenor.sample_data.FavouritePlace
 
 @Composable
-fun SearchPlaceItem(place: SearchPlace) {
+fun FavouritePlaceItem(place: FavouritePlace) {
     Column {
         Column(
             modifier = Modifier
@@ -44,7 +43,6 @@ fun SearchPlaceItem(place: SearchPlace) {
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(12.dp)
         ) {
-
             AsyncImage(
                 modifier = Modifier
                     .width(137.dp)
@@ -85,26 +83,18 @@ fun SearchPlaceItem(place: SearchPlace) {
                     fontWeight = FontWeight.Normal
                 )
             }
-            Text(
-                text = place.amount,
-                fontSize = 12.sp,
-                lineHeight = 16.sp,
-                fontWeight = FontWeight.Normal,
-                modifier = Modifier.padding(top = 6.dp)
-            )
         }
     }
 }
 
 @Preview
 @Composable
-fun SearchPlaceItemPreView() {
-    SearchPlaceItem(
-        place = SearchPlace(
+fun FavouritePlaceItemPreView() {
+    FavouritePlaceItem(
+        place = FavouritePlace(
             id = 1,
             name = "Prime Resort",
             location = "Amreli, Gujarat",
-            amount = AnnotatedString("$851/Person"),
             imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ69nti-8_ijCzxKdRYCZfKH7wfL4DT7UFltA&s",
             placeHolder = R.drawable.search_img_1
         ),

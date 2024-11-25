@@ -3,9 +3,9 @@ package com.app.travenor.sample_data
 import androidx.annotation.DrawableRes
 import com.app.travenor.R
 import com.app.travenor.routes.AppRoute
-import com.app.travenor.routes.AppRoute.CalenderAppRoute
+import com.app.travenor.routes.AppRoute.PopularAppRoute
 import com.app.travenor.routes.AppRoute.HomeAppRoute
-import com.app.travenor.routes.AppRoute.MessagesAppRoute
+import com.app.travenor.routes.AppRoute.FavouritesAppRoute
 import com.app.travenor.routes.AppRoute.ProfileAppRoute
 import com.app.travenor.routes.AppRoute.SearchAppRoute
 
@@ -22,9 +22,9 @@ val items = listOf(
         icon = R.drawable.ic_home,
     ),
     BottomNavigationItem(
-        appRoute = CalenderAppRoute,
-        title = "Calender",
-        icon = R.drawable.ic_calendar,
+        appRoute = PopularAppRoute,
+        title = "Popular",
+        icon = R.drawable.ic_popular,
     ),
     BottomNavigationItem(
         appRoute = SearchAppRoute,
@@ -32,9 +32,9 @@ val items = listOf(
         icon = R.drawable.ic_search,
     ),
     BottomNavigationItem(
-        appRoute = MessagesAppRoute,
-        title = "Messages",
-        icon = R.drawable.ic_chat,
+        appRoute = FavouritesAppRoute,
+        title = "Favourites",
+        icon = R.drawable.ic_bookmark_icon,
     ),
     BottomNavigationItem(
         appRoute = ProfileAppRoute,

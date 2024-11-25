@@ -1,4 +1,4 @@
-package com.app.travenor.features.search.presentation
+package com.app.travenor.features.popular.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,12 +6,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -27,10 +31,11 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
-import com.app.travenor.sample_data.SearchPlace
+import com.app.travenor.sample_data.PopularPlace
+import com.app.travenor.ui.theme.ratingBarColor
 
 @Composable
-fun SearchPlaceItem(place: SearchPlace) {
+fun PopularPlaceItem(place: PopularPlace) {
     Column {
         Column(
             modifier = Modifier
@@ -44,7 +49,6 @@ fun SearchPlaceItem(place: SearchPlace) {
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(12.dp)
         ) {
-
             AsyncImage(
                 modifier = Modifier
                     .width(137.dp)
@@ -85,6 +89,27 @@ fun SearchPlaceItem(place: SearchPlace) {
                     fontWeight = FontWeight.Normal
                 )
             }
+            Row(
+                modifier = Modifier.padding(top = 6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                for (i in 1..place.rating) {
+                    Icon(
+                        modifier = Modifier.size(16.dp),
+                        imageVector = Icons.Default.StarRate,
+                        contentDescription = "location icon",
+                        tint = ratingBarColor
+                    )
+                }
+                Text(
+                    text = place.rating.toString(),
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier.padding(start = 4.dp),
+                )
+            }
             Text(
                 text = place.amount,
                 fontSize = 12.sp,
@@ -98,13 +123,16 @@ fun SearchPlaceItem(place: SearchPlace) {
 
 @Preview
 @Composable
-fun SearchPlaceItemPreView() {
-    SearchPlaceItem(
-        place = SearchPlace(
+fun PopularPlaceItemPreView() {
+    PopularPlaceItem(
+        place = PopularPlace(
             id = 1,
             name = "Prime Resort",
             location = "Amreli, Gujarat",
-            amount = AnnotatedString("$851/Person"),
+            amount = AnnotatedString(
+                "$888/person"
+            ),
+            rating = 4,
             imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ69nti-8_ijCzxKdRYCZfKH7wfL4DT7UFltA&s",
             placeHolder = R.drawable.search_img_1
         ),

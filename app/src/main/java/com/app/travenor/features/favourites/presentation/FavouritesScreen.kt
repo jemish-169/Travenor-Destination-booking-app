@@ -1,11 +1,10 @@
-package com.app.travenor.features.search.presentation
+package com.app.travenor.features.favourites.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,14 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.app.travenor.sample_data.searchPlaceList
-
+import com.app.travenor.sample_data.favouritePlaceList
 
 @Composable
-fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
+fun FavouritesScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -40,17 +39,13 @@ fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
             .padding(horizontal = 20.dp)
             .padding(top = 20.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+        Box(
+            modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart
         ) {
             IconButton(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.onTertiary),
-                onClick = onBackClick
+                    .background(MaterialTheme.colorScheme.onTertiary), onClick = onBackClick
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
@@ -59,50 +54,36 @@ fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit) {
             }
 
             Text(
-                text = "Search",
+                text = "Favourite Places",
                 fontSize = 18.sp,
                 lineHeight = 22.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.fillMaxWidth()
             )
 
-            Text(
-                text = "Cancel",
-                fontSize = 16.sp,
-                lineHeight = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.clickable {
-                    onBackClick()
-                }
-            )
         }
-        Column(
-            modifier = Modifier.padding(top = 15.dp)
-        ) {
-            CustomSearchBar(onMicBtnClick = {})
-
-            LazyVerticalGrid(
-                modifier = Modifier.padding(top = 8.dp),
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(14.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                content = {
-                    items(
-                        items = searchPlaceList,
-                        key = { it.id },
-                        itemContent = { searchPlace ->
-                            SearchPlaceItem(place = searchPlace)
-                        }
-                    )
-                }
-            )
-        }
+        LazyVerticalGrid(modifier = Modifier.padding(top = 16.dp),
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(14.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            content = {
+                items(
+                    items = favouritePlaceList,
+                    key = { it.id },
+                    itemContent = { favouritePlace ->
+                        FavouritePlaceItem(place = favouritePlace)
+                    }
+                )
+            }
+        )
     }
 }
 
+
 @Composable
 @Preview
-fun SearchScreenPreview() {
-    SearchScreen(PaddingValues(0.dp)) { }
+fun FavouriteScreenPreview() {
+    FavouritesScreen(innerPadding = PaddingValues(0.dp)) {}
 }

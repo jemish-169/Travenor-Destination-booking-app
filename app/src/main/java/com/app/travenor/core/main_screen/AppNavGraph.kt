@@ -7,14 +7,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.app.travenor.features.calender.presentation.CalenderScreen
+import com.app.travenor.features.favourites.presentation.FavouriteNavGraph
 import com.app.travenor.features.home.presentation.HomeScreen
-import com.app.travenor.features.messages.presentation.MessagesScreen
+import com.app.travenor.features.popular.presentation.PopularNavGraph
 import com.app.travenor.features.profile.presentation.ProfileNavGraph
 import com.app.travenor.features.search.presentation.SearchNavGraph
-import com.app.travenor.routes.AppRoute.CalenderAppRoute
+import com.app.travenor.routes.AppRoute.FavouritesAppRoute
 import com.app.travenor.routes.AppRoute.HomeAppRoute
-import com.app.travenor.routes.AppRoute.MessagesAppRoute
+import com.app.travenor.routes.AppRoute.PopularAppRoute
 import com.app.travenor.routes.AppRoute.ProfileAppRoute
 import com.app.travenor.routes.AppRoute.SearchAppRoute
 
@@ -50,8 +50,11 @@ fun AppNavGraph(
                     )
                 }
 
-                composable<CalenderAppRoute> {
-                    CalenderScreen(innerPadding = innerPadding)
+                composable<PopularAppRoute> {
+                    PopularNavGraph(
+                        innerPadding = innerPadding,
+                        onBackOrFinish = { handleBackClick(appNavController, onBackOrFinish) }
+                    )
                 }
 
                 composable<SearchAppRoute> {
@@ -66,8 +69,11 @@ fun AppNavGraph(
                     )
                 }
 
-                composable<MessagesAppRoute> {
-                    MessagesScreen(innerPadding = innerPadding)
+                composable<FavouritesAppRoute> {
+                    FavouriteNavGraph(
+                        innerPadding = innerPadding,
+                        onBackOrFinish = { handleBackClick(appNavController, onBackOrFinish) }
+                    )
                 }
 
                 composable<ProfileAppRoute> {

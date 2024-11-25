@@ -11,13 +11,13 @@ sealed class AppRoute {
     data object HomeAppRoute : AppRoute()
 
     @Serializable
-    data object CalenderAppRoute : AppRoute()
+    data object PopularAppRoute : AppRoute()
 
     @Serializable
     data object SearchAppRoute : AppRoute()
 
     @Serializable
-    data object MessagesAppRoute : AppRoute()
+    data object FavouritesAppRoute : AppRoute()
 
     @Serializable
     data object ProfileAppRoute : AppRoute()
