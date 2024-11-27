@@ -52,12 +52,14 @@ fun AppBottomBar(
                 ),
                 selected = isSelected && index != 2,
                 onClick = {
-                    appNavController.navigate(item.appRoute) {
-                        popUpTo(appNavController.graph.findStartDestination().id) {
-                            saveState = false
+                    if (!isSelected) {
+                        appNavController.navigate(item.appRoute) {
+                            popUpTo(appNavController.graph.findStartDestination().id) {
+                                saveState = false
+                            }
+                            launchSingleTop = true
+                            restoreState = false
                         }
-                        launchSingleTop = true
-                        restoreState = false
                     }
                 },
                 label = {
@@ -79,7 +81,8 @@ fun AppBottomBar(
                         modifier = if (index == 2)
                             Modifier
                                 .background(MaterialTheme.colorScheme.primary, CircleShape)
-                                .padding(12.dp).size(24.dp)
+                                .padding(12.dp)
+                                .size(24.dp)
                         else Modifier.size(24.dp)
 
                     )
