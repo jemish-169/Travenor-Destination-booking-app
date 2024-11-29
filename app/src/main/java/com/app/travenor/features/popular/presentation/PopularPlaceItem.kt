@@ -37,7 +37,10 @@ import com.app.travenor.ui.theme.ratingBarColor
 
 @Composable
 fun PopularPlaceItem(place: PopularPlace, onItemClick: () -> Unit) {
-    Column {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Column(
             modifier = Modifier
                 .padding(1.dp)
