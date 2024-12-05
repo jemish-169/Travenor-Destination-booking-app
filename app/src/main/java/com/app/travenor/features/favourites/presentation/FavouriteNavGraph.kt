@@ -10,12 +10,14 @@ import androidx.navigation.compose.rememberNavController
 import com.app.travenor.animation.AnimateScreen
 import com.app.travenor.core.extensions.plus
 import com.app.travenor.routes.FavouriteRoute.FavouriteScreen
+import com.app.travenor.sample_data.DetailPlace
+import com.app.travenor.sample_data.toDetailPlace
 
 @Composable
 fun FavouriteNavGraph(
     innerPadding: PaddingValues,
     onBackOrFinish: () -> Unit,
-    onItemClick: () -> Unit
+    onItemClick: (DetailPlace) -> Unit
 ) {
     val favouriteNavController = rememberNavController()
 
@@ -33,7 +35,7 @@ fun FavouriteNavGraph(
                 ) {
                     FavouritesScreen(
                         innerPadding = innerPadding.plus(nestedInnerPadding),
-                        onItemClick = onItemClick,
+                        onItemClick = { onItemClick(it.toDetailPlace()) },
                         onBackClick = { handleBackClick(favouriteNavController, onBackOrFinish) }
                     )
                 }

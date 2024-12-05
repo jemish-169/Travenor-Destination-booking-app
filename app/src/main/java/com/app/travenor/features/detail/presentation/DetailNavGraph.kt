@@ -10,11 +10,13 @@ import androidx.navigation.compose.rememberNavController
 import com.app.travenor.animation.AnimateScreen
 import com.app.travenor.core.extensions.plus
 import com.app.travenor.routes.DetailRoute.DetailScreen
+import com.app.travenor.sample_data.DetailPlace
 
 @Composable
 fun DetailNavGraph(
     innerPadding: PaddingValues,
-    onBackOrFinish: () -> Unit
+    onBackOrFinish: () -> Unit,
+    detailPlace: DetailPlace
 ) {
     val detailNavController = rememberNavController()
 
@@ -34,6 +36,7 @@ fun DetailNavGraph(
                         innerPadding = innerPadding.plus(nestedInnerPadding),
                         onBackClick = { handleBackClick(detailNavController, onBackOrFinish) },
                         onBookNowClick = {},
+                        detailPlace = detailPlace
                     )
                 }
             }

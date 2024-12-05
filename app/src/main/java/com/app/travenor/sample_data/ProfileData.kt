@@ -10,7 +10,7 @@ data class ProfileData(
 )
 
 val profileData = ProfileData(
-    profileUrl = "https://img.freepik.com/premium-vector/student-avatar-illustration-user-profile-icon-youth-avatar_118339-4405.jpg",
+    profileUrl = "https://img.freepik.com/premium-photo/profile-icon-white-background_941097-162565.jpg",
     profileName = "Leonardo",
     profileMail = "leonardo@gmail.com",
     rewardPoints = 360,

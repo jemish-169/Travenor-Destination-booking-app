@@ -1,5 +1,6 @@
 package com.app.travenor.features.profile.presentation.profile_view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,13 +20,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.travenor.R
-import com.app.travenor.sample_data.ProfileReDirectItems
+import com.app.travenor.features.profile.presentation.ProfileReDirectItems
 
 @Composable
-fun ProfileReDirectItem(profileReDirectItem: ProfileReDirectItems) {
+fun ProfileReDirectItem(profileReDirectItem: ProfileReDirectItems, onItemClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {
+                onItemClick()
+            }
             .padding(top = 24.dp)
             .padding(bottom = 16.dp)
             .padding(horizontal = 16.dp),
@@ -58,5 +62,5 @@ fun ProfileReDirectItem(profileReDirectItem: ProfileReDirectItems) {
 @Composable
 @Preview
 fun ProfileReDirectItemPreview() {
-    ProfileReDirectItem(ProfileReDirectItems(R.drawable.ic_profile, "Profile", "Profile icon"))
+    ProfileReDirectItem(ProfileReDirectItems(R.drawable.ic_profile, "Profile", "Profile icon"), {})
 }

@@ -20,13 +20,15 @@ import com.app.travenor.routes.AppRoute.HomeAppRoute
 import com.app.travenor.routes.AppRoute.PopularAppRoute
 import com.app.travenor.routes.AppRoute.ProfileAppRoute
 import com.app.travenor.routes.AppRoute.SearchAppRoute
+import com.app.travenor.sample_data.DetailPlace
 
 @Composable
 fun AppNavGraph(
     innerPadding: PaddingValues,
     onBackOrFinish: () -> Unit,
     navigateToNotification: () -> Unit,
-    navigateToDetail: () -> Unit
+    navigateToDetail: (DetailPlace) -> Unit,
+    onSignOut: () -> Unit
 ) {
     val appNavController = rememberNavController()
 
@@ -51,6 +53,15 @@ fun AppNavGraph(
                         onItemClick = navigateToDetail,
                         onProfileClick = {
                             appNavController.navigate(ProfileAppRoute) {
+                                popUpTo(appNavController.graph.findStartDestination().id) {
+                                    saveState = false
+                                }
+                                launchSingleTop = true
+                                restoreState = false
+                            }
+                        },
+                        navigateToPopular = {
+                            appNavController.navigate(PopularAppRoute) {
                                 popUpTo(appNavController.graph.findStartDestination().id) {
                                     saveState = false
                                 }
@@ -118,7 +129,8 @@ fun AppNavGraph(
                                 appNavController,
                                 onBackOrFinish
                             )
-                        }
+                        },
+                        onSignOut = onSignOut
                     )
                 }
             }

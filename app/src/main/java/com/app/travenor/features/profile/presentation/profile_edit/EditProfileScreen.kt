@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -104,22 +105,26 @@ fun EditProfileScreen(
                 lineHeight = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.clickable {
-                    val result = verifyData(
-                        firstName = firstName.text,
-                        lastName = lastName.text,
-                        locationText = locationText.text,
-                        mobileNumber = mobileNumber.text
-                    )
+                modifier = Modifier
+                    .clip(RoundedCornerShape(100))
+                    .clickable {
+                        val result = verifyData(
+                            firstName = firstName.text,
+                            lastName = lastName.text,
+                            locationText = locationText.text,
+                            mobileNumber = mobileNumber.text
+                        )
 
-                    isError[0].value = result.second[0]
-                    isError[1].value = result.second[1]
-                    isError[2].value = result.second[2]
-                    isError[3].value = result.second[3]
+                        isError[0].value = result.second[0]
+                        isError[1].value = result.second[1]
+                        isError[2].value = result.second[2]
+                        isError[3].value = result.second[3]
 
-                    if (result.first)
-                        onSaveProfile()
-                }
+                        if (result.first)
+                            onSaveProfile()
+                    }
+                    .padding(vertical = 6.dp)
+                    .padding(horizontal = 10.dp)
             )
         }
 

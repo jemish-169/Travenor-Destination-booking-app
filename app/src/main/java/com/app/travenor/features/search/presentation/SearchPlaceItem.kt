@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,10 +30,10 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
-import com.app.travenor.sample_data.SearchPlace
+import com.app.travenor.sample_data.Place
 
 @Composable
-fun SearchPlaceItem(place: SearchPlace, onItemClick: () -> Unit) {
+fun SearchPlaceItem(place: Place, onItemClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -49,6 +50,7 @@ fun SearchPlaceItem(place: SearchPlace, onItemClick: () -> Unit) {
                 .clickable { onItemClick() }
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(12.dp)
+                .width(137.dp)
         ) {
 
             AsyncImage(
@@ -72,6 +74,8 @@ fun SearchPlaceItem(place: SearchPlace, onItemClick: () -> Unit) {
                 lineHeight = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(top = 8.dp, start = 4.dp)
             )
             Row(
@@ -87,6 +91,8 @@ fun SearchPlaceItem(place: SearchPlace, onItemClick: () -> Unit) {
                     text = place.location,
                     fontSize = 12.sp,
                     lineHeight = 16.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.colorScheme.tertiary,
                     fontWeight = FontWeight.Normal
                 )
@@ -107,13 +113,15 @@ fun SearchPlaceItem(place: SearchPlace, onItemClick: () -> Unit) {
 @Composable
 fun SearchPlaceItemPreView() {
     SearchPlaceItem(
-        place = SearchPlace(
+        place = Place(
             id = 1,
-            name = "Prime Resort",
-            location = "Amreli, Gujarat",
-            amount = AnnotatedString("$851/Person"),
-            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ69nti-8_ijCzxKdRYCZfKH7wfL4DT7UFltA&s",
-            placeHolder = R.drawable.search_img_1
+            name = "Sunrise Oasis Resort",
+            location = "Junagadh, Gujarat",
+            amount = AnnotatedString("$672"),
+            rating = 4,
+            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO54ZW1yyW2bf8VoCetfFbmT333QbRq6ojEQ&s",
+            placeHolder = R.drawable.search_img_1,
+            isBookMarked = false
         ),
         onItemClick = {  },
     )

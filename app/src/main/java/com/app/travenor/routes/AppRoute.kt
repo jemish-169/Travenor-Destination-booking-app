@@ -1,5 +1,6 @@
 package com.app.travenor.routes
 
+import com.app.travenor.sample_data.DetailPlace
 import kotlinx.serialization.Serializable
 
 sealed class AppRoute {
@@ -26,5 +27,5 @@ sealed class AppRoute {
     data object NotificationNavGraph : AppRoute()
 
     @Serializable
-    data object DetailRoute : AppRoute()
+    data class DetailNavGraph(val detailPlace: DetailPlace) : AppRoute()
 }

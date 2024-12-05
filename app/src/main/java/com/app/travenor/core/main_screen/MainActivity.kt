@@ -25,7 +25,10 @@ class MainActivity : ComponentActivity() {
                     setOnboarded = { isLogin ->
                         Preferences.setIsOnboarded(isLogin)
                     },
-                    onBackOrFinish = { handleBackClick(rootNavController) }
+                    onBackOrFinish = { handleBackClick(rootNavController) },
+                    clearAllPref = {
+                        Preferences.clearAllPref()
+                    }
                 )
             }
         }

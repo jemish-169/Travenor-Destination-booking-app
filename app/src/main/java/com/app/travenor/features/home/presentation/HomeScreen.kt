@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,15 +35,18 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
 import com.app.travenor.features.onboarding.domain.getMainPageText
-import com.app.travenor.sample_data.bestLocationList
+import com.app.travenor.sample_data.DetailPlace
 import com.app.travenor.sample_data.getProfileUrl
+import com.app.travenor.sample_data.placesList
+import com.app.travenor.sample_data.toDetailPlace
 
 @Composable
 fun HomeScreen(
     innerPadding: PaddingValues,
     onNotificationClick: () -> Unit,
     onProfileClick: () -> Unit,
-    onItemClick: () -> Unit
+    onItemClick: (DetailPlace) -> Unit,
+    navigateToPopular: () -> Unit
 ) {
 
     Column(
@@ -109,9 +113,10 @@ fun HomeScreen(
 
         Row(
             modifier = Modifier
-                .padding(top = 30.dp)
+                .padding(top = 26.dp)
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "Best Destination",
@@ -125,7 +130,14 @@ fun HomeScreen(
                 fontSize = 20.sp,
                 lineHeight = 28.sp,
                 color = MaterialTheme.colorScheme.secondary,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(100))
+                    .clickable {
+                        navigateToPopular()
+                    }
+                    .padding(vertical = 2.dp)
+                    .padding(horizontal = 10.dp)
             )
         }
 
@@ -133,10 +145,10 @@ fun HomeScreen(
             contentPadding = PaddingValues(vertical = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(items = bestLocationList, key = { it.id }) { location ->
+            items(items = placesList.take(5), key = { it.id }) { place ->
                 DestinationItem(
-                    location = location,
-                    onItemClick = onItemClick,
+                    place = place,
+                    onItemClick = { onItemClick(place.toDetailPlace()) },
                     onBookmarkClick = { }
                 )
             }
@@ -147,5 +159,5 @@ fun HomeScreen(
 @Composable
 @Preview
 fun HomeScreenPreView() {
-    HomeScreen(PaddingValues(0.dp), {}, {}, {})
+    HomeScreen(PaddingValues(0.dp), {}, {}, {}, {})
 }

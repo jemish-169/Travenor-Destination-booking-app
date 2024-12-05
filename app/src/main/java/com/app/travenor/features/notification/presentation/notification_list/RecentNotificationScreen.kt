@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +32,7 @@ import com.app.travenor.sample_data.notificationList
 @Composable
 fun RecentNotificationScreen(onNotificationClick: (Int, Notification) -> Unit) {
     LazyColumn {
-        items(items = notificationList, key = { it.id }) { notification ->
+        items(items = notificationList.takeLast(5), key = { it.id }) { notification ->
             ListItem(
                 modifier = Modifier.clickable { onNotificationClick(1, notification) },
                 headlineContent = {
@@ -45,6 +46,9 @@ fun RecentNotificationScreen(onNotificationClick: (Int, Notification) -> Unit) {
                             fontSize = 18.sp,
                             lineHeight = 24.sp,
                             fontWeight = FontWeight.Medium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f),
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
@@ -62,7 +66,9 @@ fun RecentNotificationScreen(onNotificationClick: (Int, Notification) -> Unit) {
                         fontSize = 14.sp,
                         lineHeight = 16.sp,
                         fontWeight = FontWeight.Normal,
-                        color = MaterialTheme.colorScheme.tertiary
+                        color = MaterialTheme.colorScheme.tertiary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
                 leadingContent = {

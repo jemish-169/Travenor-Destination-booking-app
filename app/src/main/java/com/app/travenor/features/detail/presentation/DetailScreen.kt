@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,13 +36,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,14 +55,19 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
+import com.app.travenor.sample_data.DetailPlace
+import com.app.travenor.sample_data.Place
 import com.app.travenor.sample_data.detailPlaceData
+import com.app.travenor.sample_data.toDetailPlace
+import com.app.travenor.ui.theme.primary
 import com.app.travenor.ui.theme.ratingBarColor
 
 @Composable
 fun DetailScreen(
     innerPadding: PaddingValues,
     onBackClick: () -> Unit,
-    onBookNowClick: () -> Unit
+    onBookNowClick: () -> Unit,
+    detailPlace: DetailPlace
 ) {
     val data = detailPlaceData
     var isExpanded by remember { mutableStateOf(false) }
@@ -71,13 +82,15 @@ fun DetailScreen(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(data.profileUrl)
+                .data(detailPlace.imageUrl)
                 .crossfade(true)
                 .build(),
-            placeholder = painterResource(id = data.placePlaceHolderImage),
-            error = painterResource(id = data.placePlaceHolderImage),
-            fallback = painterResource(id = data.placePlaceHolderImage),
-            contentDescription = "place image"
+            placeholder = painterResource(id = detailPlace.placeHolder),
+            error = painterResource(id = detailPlace.placeHolder),
+            fallback = painterResource(id = detailPlace.placeHolder),
+            contentDescription = "place image",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxHeight(0.7f)
         )
         Row(
             modifier = Modifier
@@ -132,6 +145,12 @@ fun DetailScreen(
     ) {
         Column(
             modifier = Modifier
+                .padding(top = 4.dp)
+                .shadow(
+                    elevation = 4.dp,
+                    shape = RoundedCornerShape(topEnd = 32.dp, topStart = 32.dp),
+                    spotColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f)
+                )
                 .clip(RoundedCornerShape(topEnd = 32.dp, topStart = 32.dp))
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(20.dp)
@@ -153,14 +172,14 @@ fun DetailScreen(
             ) {
                 Column {
                     Text(
-                        text = data.placeName,
+                        text = detailPlace.name,
                         fontSize = 24.sp,
                         lineHeight = 32.sp,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = data.placeAddress,
+                        text = detailPlace.location,
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
                         fontWeight = FontWeight.Normal,
@@ -195,7 +214,7 @@ fun DetailScreen(
                         tint = MaterialTheme.colorScheme.tertiary
                     )
                     Text(
-                        text = data.placeLoc,
+                        text = detailPlace.location.dropLastWhile { it == ' ' },
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
                         color = MaterialTheme.colorScheme.tertiary,
@@ -212,7 +231,7 @@ fun DetailScreen(
                         tint = ratingBarColor
                     )
                     Text(
-                        text = data.rating,
+                        text = detailPlace.rating.toString(),
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -230,7 +249,7 @@ fun DetailScreen(
                 }
 
                 Text(
-                    text = data.amount,
+                    text = getAmount(detailPlace.amount),
                     fontSize = 15.sp,
                     lineHeight = 20.sp,
                     color = MaterialTheme.colorScheme.tertiary,
@@ -248,7 +267,7 @@ fun DetailScreen(
                 for (i in 0..3) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(data.placeImageUrl[i])
+                            .data(data.placeImageList[i])
                             .crossfade(true)
                             .build(),
                         modifier = Modifier
@@ -264,7 +283,7 @@ fun DetailScreen(
                 Box(contentAlignment = Alignment.Center) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(data.placeImageUrl[4])
+                            .data(data.placeImageList[4])
                             .crossfade(true)
                             .build(),
                         modifier = Modifier
@@ -341,8 +360,27 @@ fun DetailScreen(
     }
 }
 
+private fun getAmount(amount: String): AnnotatedString {
+    return buildAnnotatedString {
+        withStyle(SpanStyle(color = primary)) {
+            append("$amount/")
+        }
+        append("Person")
+    }
+}
+
 @Preview
 @Composable
 fun DetailScreenPreview() {
-    DetailScreen(innerPadding = PaddingValues(0.dp), {}, {})
+    DetailScreen(innerPadding = PaddingValues(0.dp), {}, {}, detailPlace = Place(
+        id = 1,
+        name = "Sunrise Oasis Resort",
+        location = "Junagadh, Gujarat",
+        amount = AnnotatedString("$672/Person"),
+        rating = 4,
+        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO54ZW1yyW2bf8VoCetfFbmT333QbRq6ojEQ&s",
+        placeHolder = R.drawable.search_img_1,
+        isBookMarked = false
+    ).toDetailPlace()
+    )
 }
