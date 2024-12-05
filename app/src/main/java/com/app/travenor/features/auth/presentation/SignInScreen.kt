@@ -138,9 +138,12 @@ fun SignInScreen(
                 color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier
                     .align(Alignment.End)
+                    .clip(RoundedCornerShape(100))
                     .clickable {
                         moveToForgetPassword(emailText.text)
-                    },
+                    }
+                    .padding(vertical = 6.dp)
+                    .padding(horizontal = 10.dp),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 lineHeight = 16.sp

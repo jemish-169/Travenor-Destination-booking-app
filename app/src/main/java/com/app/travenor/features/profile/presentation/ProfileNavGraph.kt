@@ -15,7 +15,11 @@ import com.app.travenor.routes.ProfileRoute.EditProfileScreen
 import com.app.travenor.routes.ProfileRoute.ProfileScreen
 
 @Composable
-fun ProfileNavGraph(onBackOrFinish: () -> Unit, innerPadding: PaddingValues) {
+fun ProfileNavGraph(
+    onBackOrFinish: () -> Unit,
+    innerPadding: PaddingValues,
+    onSignOut: () -> Unit
+) {
     val profileNavController = rememberNavController()
 
     Scaffold(
@@ -33,7 +37,9 @@ fun ProfileNavGraph(onBackOrFinish: () -> Unit, innerPadding: PaddingValues) {
                     ProfileScreen(
                         innerPadding = innerPadding.plus(nestedInnerPadding),
                         onBackClick = { handleBackClick(profileNavController, onBackOrFinish) },
-                        onEditClick = { profileNavController.navigate(EditProfileScreen) }
+                        onEditClick = { profileNavController.navigate(EditProfileScreen) },
+                        onSignOut = onSignOut
+
                     )
                 }
                 composable<EditProfileScreen>(

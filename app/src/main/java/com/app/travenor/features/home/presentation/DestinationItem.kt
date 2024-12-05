@@ -30,7 +30,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,12 +40,16 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
-import com.app.travenor.sample_data.BestLocations
-import com.app.travenor.ui.theme.secondary
+import com.app.travenor.sample_data.Place
+import com.app.travenor.ui.theme.ratingBarColor
 
 @Composable
-fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItemClick: () -> Unit) {
-    val isBookmarked = remember { mutableStateOf(location.isBookmarked) }
+fun DestinationItem(
+    place: Place,
+    onBookmarkClick: () -> Unit,
+    onItemClick: () -> Unit
+) {
+    val isBookmarked = remember { mutableStateOf(place.isBookMarked) }
     Column(
         modifier = Modifier
             .padding(1.dp)
@@ -66,12 +72,12 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItem
                     .height(286.dp)
                     .clip(RoundedCornerShape(20.dp)),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(location.locImageUrl)
+                    .data(place.imageUrl)
                     .crossfade(true)
                     .build(),
-                placeholder = painterResource(id = location.placeHolderImage),
-                error = painterResource(id = location.placeHolderImage),
-                fallback = painterResource(id = location.placeHolderImage),
+                placeholder = painterResource(id = place.placeHolder),
+                error = painterResource(id = place.placeHolder),
+                fallback = painterResource(id = place.placeHolder),
                 contentDescription = "item desc",
                 contentScale = ContentScale.Crop
             )
@@ -87,7 +93,6 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItem
                     .padding(8.dp),
                 onClick = {
                     isBookmarked.value = !isBookmarked.value
-                    location.isBookmarked = isBookmarked.value
                     onBookmarkClick()
                 }
             ) {
@@ -107,15 +112,17 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItem
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = location.locName,
+                    text = place.name,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                     lineHeight = 24.sp,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -124,10 +131,10 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItem
                     Icon(
                         painter = painterResource(id = R.drawable.ic_star),
                         contentDescription = "rating icon",
-                        tint = secondary
+                        tint = ratingBarColor
                     )
                     Text(
-                        text = location.rating,
+                        text = place.rating.toString(),
                         fontWeight = FontWeight.Normal,
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
@@ -153,7 +160,7 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItem
                         tint = MaterialTheme.colorScheme.tertiary
                     )
                     Text(
-                        text = location.locAddress,
+                        text = place.location,
                         fontWeight = FontWeight.Normal,
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
@@ -162,8 +169,8 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItem
                 }
 
                 Row(horizontalArrangement = Arrangement.spacedBy((-11).dp)) {
-                    if (location.profileList.size >= 3) {
-                        location.profileList.take(3).forEachIndexed { index, imgUrl ->
+                    if (place.reviewerProfiles.size >= 3) {
+                        place.reviewerProfiles.take(3).forEachIndexed { index, imgUrl ->
                             AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
                                     .data(imgUrl)
@@ -187,7 +194,7 @@ fun DestinationItem(location: BestLocations, onBookmarkClick: () -> Unit, onItem
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "+${location.profileList.size - 3}",
+                                text = "+${place.reviewerProfiles.size - 3}",
                                 color = MaterialTheme.colorScheme.background,
                                 fontSize = 11.sp,
                                 lineHeight = 13.sp,
@@ -213,23 +220,23 @@ fun getPlaceHolderImage(index: Int): Int {
 @Composable
 fun DestinationItemPreview() {
     DestinationItem(
-        BestLocations(
+        Place(
             id = 1,
-            locName = "Elite Resort",
-            isBookmarked = true,
-            locAddress = "Ahmedabad, Gujarat",
-            rating = "4.9",
-            locImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR78OI5Pcmb5ELnr2lNRHjn_sMJAG2VxNRQug&s",
-            placeHolderImage = R.drawable.onboarding_3,
-            profileList = listOf(
-                "https://cdn-icons-png.flaticon.com/512/2919/2919906.png",
-                "https://img.freepik.com/premium-vector/student-avatar-illustration-user-profile-icon-youth-avatar_118339-4405.jpg",
+            name = "Sunrise Oasis Resort",
+            location = "Junagadh, Gujarat",
+            amount = AnnotatedString("$672"),
+            rating = 4,
+            reviewerProfiles = listOf(
                 "https://img.freepik.com/premium-photo/cartoon-boy-with-glasses-smiling-modern-line-icon-avatar_1106493-512908.jpg",
-                "https://picsbed.top/file/oFWsedso%2FpQ9yeDpEvaEqEO4UvrWajYdGOem1ePC9Is%3D",
+                "https://img.freepik.com/premium-vector/student-avatar-illustration-user-profile-icon-youth-avatar_118339-4405.jpg",
                 "https://img.freepik.com/premium-vector/businessman-avatar-illustration-cartoon-user-portrait-user-profile-icon_118339-5502.jpg",
+                "https://picsbed.top/file/oFWsedso%2FpQ9yeDpEvaEqEO4UvrWajYdGOem1ePC9Is%3D",
                 "https://png.pngtree.com/png-clipart/20240723/original/pngtree-flat-people-man-icon-illustration-vector-png-image_15612321.png",
+                "https://cdn-icons-png.flaticon.com/512/2919/2919906.png",
                 "https://img.freepik.com/premium-photo/profile-icon-white-background_941097-162565.jpg"
-            )
+            ),
+            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO54ZW1yyW2bf8VoCetfFbmT333QbRq6ojEQ&s",
+            placeHolder = R.drawable.search_img_1
         ),
         {},
         {  }

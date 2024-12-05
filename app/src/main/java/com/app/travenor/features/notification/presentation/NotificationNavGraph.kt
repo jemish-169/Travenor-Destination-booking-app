@@ -57,7 +57,7 @@ fun NotificationNavGraph(
                     popExitTransition = AnimateScreen.rightPopExitTransition(),
                     exitTransition = AnimateScreen.leftExitTransition(),
                     typeMap =mapOf(
-                        typeOf<Notification>() to CustomNavType.NotificationNavType,
+                        typeOf<Notification>() to NotificationCustomNav.NotificationNavType,
                     )
                 ) {
                     val args = it.toRoute<NotificationDetailScreen>()

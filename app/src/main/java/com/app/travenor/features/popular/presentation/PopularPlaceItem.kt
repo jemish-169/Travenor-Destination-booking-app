@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,11 +33,11 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
-import com.app.travenor.sample_data.PopularPlace
+import com.app.travenor.sample_data.Place
 import com.app.travenor.ui.theme.ratingBarColor
 
 @Composable
-fun PopularPlaceItem(place: PopularPlace, onItemClick: () -> Unit) {
+fun PopularPlaceItem(place: Place, onItemClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -53,6 +54,7 @@ fun PopularPlaceItem(place: PopularPlace, onItemClick: () -> Unit) {
                 .clickable { onItemClick() }
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(12.dp)
+                .width(137.dp)
         ) {
             AsyncImage(
                 modifier = Modifier
@@ -75,6 +77,8 @@ fun PopularPlaceItem(place: PopularPlace, onItemClick: () -> Unit) {
                 lineHeight = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(top = 8.dp, start = 4.dp)
             )
             Row(
@@ -131,15 +135,13 @@ fun PopularPlaceItem(place: PopularPlace, onItemClick: () -> Unit) {
 @Composable
 fun PopularPlaceItemPreView() {
     PopularPlaceItem(
-        place = PopularPlace(
+        place = Place(
             id = 1,
-            name = "Prime Resort",
-            location = "Amreli, Gujarat",
-            amount = AnnotatedString(
-                "$888/person"
-            ),
+            name = "Sunrise Oasis Resort",
+            location = "Junagadh, Gujarat",
+            amount = AnnotatedString("$672"),
             rating = 4,
-            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ69nti-8_ijCzxKdRYCZfKH7wfL4DT7UFltA&s",
+            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO54ZW1yyW2bf8VoCetfFbmT333QbRq6ojEQ&s",
             placeHolder = R.drawable.search_img_1
         ),
         onItemClick = { },

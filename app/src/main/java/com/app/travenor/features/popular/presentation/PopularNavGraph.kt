@@ -10,12 +10,14 @@ import androidx.navigation.compose.rememberNavController
 import com.app.travenor.animation.AnimateScreen
 import com.app.travenor.core.extensions.plus
 import com.app.travenor.routes.PopularRoute.PopularScreen
+import com.app.travenor.sample_data.DetailPlace
+import com.app.travenor.sample_data.toDetailPlace
 
 @Composable
 fun PopularNavGraph(
     innerPadding: PaddingValues,
     onBackOrFinish: () -> Unit,
-    onItemClick: () -> Unit
+    onItemClick: (DetailPlace) -> Unit
 ) {
     val popularNavController = rememberNavController()
 
@@ -33,7 +35,7 @@ fun PopularNavGraph(
                 ) {
                     PopularsScreen(
                         innerPadding = innerPadding.plus(nestedInnerPadding),
-                        onItemClick = onItemClick,
+                        onItemClick = { onItemClick(it.toDetailPlace()) },
                         onBackClick = { handleBackClick(popularNavController, onBackOrFinish) }
                     )
                 }

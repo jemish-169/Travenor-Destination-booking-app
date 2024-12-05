@@ -9,7 +9,7 @@ data class EditProfileData(
 )
 
 val editProfileData = EditProfileData(
-    profileUrl = "https://img.freepik.com/premium-vector/student-avatar-illustration-user-profile-icon-youth-avatar_118339-4405.jpg",
+    profileUrl = "https://img.freepik.com/premium-photo/profile-icon-white-background_941097-162565.jpg",
     firstName = "Leonardo",
     lastName = "Ahmed",
     location = "Sylhet Bangladesh",

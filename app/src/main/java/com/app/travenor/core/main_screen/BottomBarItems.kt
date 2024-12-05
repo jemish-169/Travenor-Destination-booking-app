@@ -1,4 +1,4 @@
-package com.app.travenor.sample_data
+package com.app.travenor.core.main_screen
 
 import androidx.annotation.DrawableRes
 import com.app.travenor.R

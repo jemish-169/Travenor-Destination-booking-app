@@ -113,7 +113,7 @@ fun OtpVerifyScreen(
                     otpText[index] = value
                 },
                 onOtpInputComplete = {
-                    validateAndMove(otpText.toString())
+//                    validateAndMove(otpText.toString())
                 },
                 isError = false,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -126,7 +126,9 @@ fun OtpVerifyScreen(
                     .padding(top = 40.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.primary)
-                    .clickable { validateAndMove(otpText.toString()) }
+                    .clickable {
+                        validateAndMove(otpText.toString())
+                    }
                     .padding(16.dp),
                 fontSize = 16.sp,
                 lineHeight = 20.sp,

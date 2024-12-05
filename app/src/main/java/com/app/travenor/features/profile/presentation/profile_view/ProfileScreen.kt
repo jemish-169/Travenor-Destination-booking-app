@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -15,11 +17,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,22 +42,46 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.app.travenor.R
+import com.app.travenor.features.profile.presentation.profileReDirectItems
 import com.app.travenor.sample_data.profileData
-import com.app.travenor.sample_data.profileReDirectItems
 
 @Composable
 fun ProfileScreen(
     innerPadding: PaddingValues,
-    onBackClick: () -> Unit,
-    onEditClick: () -> Unit
+    onBackClick: () -> Unit, onEditClick: () -> Unit, onSignOut: () -> Unit
 ) {
     val profileData = profileData
+    var showSignOutDialog by remember { mutableStateOf(false) }
+
+    if (showSignOutDialog) {
+        AlertDialog(onDismissRequest = { showSignOutDialog = false }, title = {
+            Text(text = "Sign Out", style = MaterialTheme.typography.titleLarge)
+        }, text = {
+            Text(
+                text = "Are you sure you want to sign out?",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }, confirmButton = {
+            TextButton(onClick = {
+                showSignOutDialog = false
+                onSignOut()
+            }) {
+                Text(text = "Yes")
+            }
+        }, dismissButton = {
+            TextButton(onClick = { showSignOutDialog = false }) {
+                Text(text = "No")
+            }
+        })
+    }
+
     Column(
         modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(20.dp)
+            .padding(top = 20.dp)
+            .padding(horizontal = 20.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Row(
@@ -172,15 +204,20 @@ fun ProfileScreen(
                 )
                 .background(MaterialTheme.colorScheme.surface),
         ) {
-            profileReDirectItems.forEach { profileReDirectItem ->
-                ProfileReDirectItem(profileReDirectItem)
+            profileReDirectItems.forEachIndexed { index, profileReDirectItem ->
+                ProfileReDirectItem(profileReDirectItem, onItemClick = {
+                    if (index == 5) {
+                        showSignOutDialog = true
+                    }
+                })
             }
         }
+        Spacer(modifier = Modifier.height(16.dp).fillMaxWidth())
     }
 }
 
 @Preview
 @Composable
 fun ProfileScreenPreview() {
-    ProfileScreen(PaddingValues(0.dp), {}, {})
+    ProfileScreen(PaddingValues(0.dp), {}, {}, {})
 }

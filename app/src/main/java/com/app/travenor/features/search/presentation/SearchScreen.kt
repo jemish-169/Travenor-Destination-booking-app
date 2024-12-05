@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -27,11 +29,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.app.travenor.sample_data.searchPlaceList
+import com.app.travenor.sample_data.Place
+import com.app.travenor.sample_data.placesList
 
 
 @Composable
-fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit, onItemClick: () -> Unit) {
+fun SearchScreen(
+    innerPadding: PaddingValues,
+    onBackClick: () -> Unit,
+    onItemClick: (Place) -> Unit
+) {
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -78,7 +85,7 @@ fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit, onItemCli
             )
         }
         Column(
-            modifier = Modifier.padding(top = 15.dp)
+            modifier = Modifier.padding(top = 16.dp)
         ) {
             CustomSearchBar(onMicBtnClick = {})
 
@@ -89,12 +96,17 @@ fun SearchScreen(innerPadding: PaddingValues, onBackClick: () -> Unit, onItemCli
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 content = {
                     items(
-                        items = searchPlaceList,
+                        items = placesList,
                         key = { it.id },
                         itemContent = { searchPlace ->
-                            SearchPlaceItem(place = searchPlace, onItemClick = onItemClick)
+                            SearchPlaceItem(
+                                place = searchPlace,
+                                onItemClick = { onItemClick(searchPlace) })
                         }
                     )
+                    item {
+                        Spacer(modifier = Modifier.height((-8).dp))
+                    }
                 }
             )
         }

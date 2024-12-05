@@ -7,7 +7,7 @@ import com.app.travenor.sample_data.Notification
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
 
-object CustomNavType {
+object NotificationCustomNav {
 
     val NotificationNavType = object : NavType<Notification>(
         isNullableAllowed = false

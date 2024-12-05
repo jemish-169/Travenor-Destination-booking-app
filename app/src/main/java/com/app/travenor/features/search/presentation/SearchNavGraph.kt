@@ -10,9 +10,15 @@ import androidx.navigation.compose.rememberNavController
 import com.app.travenor.animation.AnimateScreen
 import com.app.travenor.core.extensions.plus
 import com.app.travenor.routes.SearchRoute.SearchScreen
+import com.app.travenor.sample_data.DetailPlace
+import com.app.travenor.sample_data.toDetailPlace
 
 @Composable
-fun SearchNavGraph(onBackOrFinish: () -> Unit, innerPadding: PaddingValues, onItemClick: () -> Unit) {
+fun SearchNavGraph(
+    onBackOrFinish: () -> Unit,
+    innerPadding: PaddingValues,
+    onItemClick: (DetailPlace) -> Unit
+) {
     val searchNavController = rememberNavController()
 
     Scaffold(
@@ -29,7 +35,7 @@ fun SearchNavGraph(onBackOrFinish: () -> Unit, innerPadding: PaddingValues, onIt
                 ) {
                     SearchScreen(
                         innerPadding = innerPadding.plus(nestedInnerPadding),
-                        onItemClick = onItemClick,
+                        onItemClick = { onItemClick(it.toDetailPlace()) },
                         onBackClick = { handleBackClick(searchNavController, onBackOrFinish) }
                     )
                 }
