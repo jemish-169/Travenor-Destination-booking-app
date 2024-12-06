@@ -17,23 +17,23 @@ fun getOnBoardingDetailList(): List<OnBoardingDetail> {
                 otherText = "Life is short and the world is ",
                 mainText = "wide"
             ),
-            detailText = "At Friends tours and travel, we customize reliable and trustworthy educational tours to destinations all over the world",
+            detailText = "At Friends tours and travel, we customize trustworthy tours to destinations all over the world",
             buttonText = "Next",
             descriptionOfImage = "Page 1"
         ), OnBoardingDetail(
             image = R.drawable.onboarding_2,
             titleText = getAnnotatedString(
-                otherText = "It’s a big world out there go explore ",
+                otherText = "It’s a big world out there go ",
                 mainText = "explore"
             ),
-            detailText = "To get the best of your adventure you just need to leave and go where you like. we are waiting for you",
+            detailText = "To get the best of your adventure you just need to go where you like. we are waiting for you",
             buttonText = "Next",
             descriptionOfImage = "Page 2"
         ), OnBoardingDetail(
             image = R.drawable.onboarding_3,
             titleText = getAnnotatedString(
-                otherText = "People don’t take trips, trips take ",
-                mainText = "people"
+                otherText = "It's always, Journey over ",
+                mainText = "destination"
             ),
             detailText = "Whether it's your first step or your hundredth, we're here to make your journey unforgettable.",
             buttonText = "Get Started",

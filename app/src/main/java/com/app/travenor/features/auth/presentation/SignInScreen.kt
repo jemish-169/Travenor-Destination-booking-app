@@ -62,10 +62,9 @@ fun SignInScreen(
             .padding(innerPadding)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(20.dp)
             .verticalScroll(rememberScrollState())
+            .padding(20.dp)
     ) {
-        Column(modifier = Modifier.weight(1f)) {
             IconButton(
                 modifier = Modifier
                     .clip(CircleShape)
@@ -197,7 +196,6 @@ fun SignInScreen(
                     .padding(top = 24.dp),
                 lineHeight = 16.sp
             )
-        }
         Row(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

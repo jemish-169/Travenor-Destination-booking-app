@@ -26,11 +26,6 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,15 +43,7 @@ fun NotificationListScreen(
     onClearAllClicked: (Int) -> Unit
 ) {
     val pagerState = rememberPagerState(pageCount = { 3 })
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabList = listOf("Recent", "Earlier", "Archived")
-
-    LaunchedEffect(selectedTabIndex) {
-        pagerState.animateScrollToPage(selectedTabIndex)
-    }
-    LaunchedEffect(pagerState.currentPage) {
-        selectedTabIndex = pagerState.currentPage
-    }
 
     Column(
         modifier = Modifier
@@ -121,7 +108,7 @@ fun NotificationListScreen(
             tabList.forEachIndexed { index, title ->
                 Tab(
                     selected = pagerState.currentPage == index,
-                    onClick = { selectedTabIndex = index },
+                    onClick = {},
                     text = {
                         Text(
                             text = title,

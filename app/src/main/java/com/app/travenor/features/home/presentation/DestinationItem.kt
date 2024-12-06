@@ -164,6 +164,8 @@ fun DestinationItem(
                         fontWeight = FontWeight.Normal,
                         fontSize = 15.sp,
                         lineHeight = 20.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         color = MaterialTheme.colorScheme.tertiary
                     )
                 }

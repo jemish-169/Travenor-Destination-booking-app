@@ -48,8 +48,8 @@ fun ForgotPassScreen(
             .padding(innerPadding)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(20.dp)
             .verticalScroll(rememberScrollState())
+            .padding(20.dp)
     ) {
         Column(modifier = Modifier.weight(1f)) {
             IconButton(

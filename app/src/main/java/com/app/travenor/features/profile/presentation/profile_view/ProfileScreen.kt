@@ -80,9 +80,9 @@ fun ProfileScreen(
             .padding(innerPadding)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .verticalScroll(rememberScrollState())
             .padding(top = 20.dp)
             .padding(horizontal = 20.dp)
-            .verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

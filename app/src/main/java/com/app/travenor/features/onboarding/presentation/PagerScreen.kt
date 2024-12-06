@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +27,7 @@ fun PagerScreen(onBoardingDetail: OnBoardingDetail) {
         Image(
             contentScale = ContentScale.Crop,
             modifier = Modifier
+                .fillMaxWidth()
                 .weight(1f)
                 .clip(RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)),
             painter = painterResource(id = onBoardingDetail.image),
@@ -41,6 +43,8 @@ fun PagerScreen(onBoardingDetail: OnBoardingDetail) {
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Black,
                 lineHeight = 36.sp,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -50,6 +54,8 @@ fun PagerScreen(onBoardingDetail: OnBoardingDetail) {
                     .fillMaxWidth(),
                 text = onBoardingDetail.detailText,
                 fontSize = 16.sp,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
                 lineHeight = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
