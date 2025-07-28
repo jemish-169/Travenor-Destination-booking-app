@@ -1,8 +1,5 @@
 # Travenor
 
-## Overview  
-**Travenor** is a travel destination booking app UI template built with Jetpack Compose. This project focuses on building a seamless and interactive user interface for a travel platform, complete with smooth animations, dynamic theming, and responsive layouts.
-
 ## Features
 
 - **Onboarding Flow**  
